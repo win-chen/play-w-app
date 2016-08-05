@@ -3,9 +3,20 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic'])
+window.app = angular.module('play-w', ['ionic', 'ui.router', 'ui.bootstrap'])
 
-.run(function($ionicPlatform) {
+app.config(function ($urlRouterProvider, $locationProvider) {
+    // This turns off hashbang urls (/#about) and changes it to something normal (/about)
+    $locationProvider.html5Mode(true);
+    // If we go to a URL that ui-router doesn't have registered, go to the "/" url.
+    $urlRouterProvider.otherwise('/');
+    // Trigger page refresh when accessing an OAuth route
+    $urlRouterProvider.when('/auth/:provider', function () {
+        window.location.reload();
+    });
+});
+
+app.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
