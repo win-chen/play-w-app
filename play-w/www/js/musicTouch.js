@@ -47,6 +47,8 @@ function initPlayer() {
       context.readPixels(clickLoc.x, clickLoc.y, 5, 5, context.RGB, context.UNSIGNED_BYTE, data);
 
       console.log("pixels", data);
+      // play note
+      playNote();
   })
 }
 
