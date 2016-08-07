@@ -35,21 +35,4 @@ app.run(function($ionicPlatform) {
   });
 })
 
-// Socket for sending/receiving notes
-var socket = io(window.location.origin);
 
-socket.on('connect', function(){
-
-  console.log('I have made a persistent two-way connection to the server!');
-
-
-  // catch musicTouch playing event
-  musicTouch.on('playing', function (note){
-      socket.emit('imPlaying', note)
-  })
-
-  socket.on('othersPlay', function(note){
-    musicTouch.play(note);
-  })
-
-})

@@ -9,6 +9,8 @@ var parser = _dereq_('socket.io-parser');
 var Manager = _dereq_('./manager');
 var debug = _dereq_('debug')('socket.io-client');
 
+console.log("socket.io script running");
+
 /**
  * Module exports.
  */
@@ -3160,7 +3162,7 @@ JSONPPolling.prototype.doPoll = function () {
   this.script = script;
 
   var isUAgecko = 'undefined' != typeof navigator && /gecko/i.test(navigator.userAgent);
-  
+
   if (isUAgecko) {
     setTimeout(function () {
       var iframe = document.createElement('iframe');

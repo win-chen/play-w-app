@@ -45,7 +45,6 @@
     <script src="cordova.js"></script>
 
     <!-- playw scripts -->
-    <script src="lib/socket.io-client/socket.io.js"></script>
     <script src="js/eventEmitter.js"></script>
     <script src="js/render/three.js"></script>
     <script src="js/render/DeviceOrientationControls.js"></script>
@@ -55,7 +54,14 @@
 
     <!-- your app's js -->
     <script src="js/app.js"></script>
+    <!-- socket test -->
+    <!-- make sure the client socket io version is the same as server version -->
+  <script type="text/javascript" src="http://cdn.socket.io/socket.io-1.4.8.js"></script>
+  <script src="js/socket.js" defer>
+  </script>
+
   </head>
+
   <body ng-app="playw">
 
 <!-- <div id="container"></div> -->

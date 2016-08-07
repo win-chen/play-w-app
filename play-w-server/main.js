@@ -11,28 +11,30 @@ var createApplication = function () {
     var app = require('./app')(db);
     server.on('request', app); // Attach the Express application.
     // require('./io')(server);   // Attach socket.io.
+    var io = socketio(server);
+
+    console.log("Sockets ready");
+
+    io.on('connection', function(socket) {
+      //receives the newly connected socket
+      //called for each browser that connects to our server
+      console.log('A new client has connected');
+      console.log('socket id: ', socket.id);
+
+      //event that runs anytime a socket disconnects
+      socket.on('disconnect', function(){
+        console.log('socket id ' + socket.id + ' has disconnected. : (');
+      })
+
+      socket.on('imPlaying', function(note) {
+        console.log('catching a note')
+
+         socket.emit('text', 'wow. such event. very real time.');
+        // Broadcast(other sockets only)
+        socket.broadcast.emit('othersPlay', note);
+      })
+    })
 };
-
-var io = socketio(server);
-
-io.on('connection', function(socket) {
-  //receives the newly connected socket
-  //called for each browser that connects to our server
-  console.log('A new client has connected')
-  console.log('socket id: ', socket.id)
-
-  //event that runs anytime a socket disconnects
-  socket.on('disconnect', function(){
-    console.log('socket id ' + socket.id + ' has disconnected. : (');
-  })
-
-  socket.on('imPlaying', function(note) {
-    console.log('catching a note')
-
-    // Broadcast(other sockets only)
-    socket.broadcast.emit('othersPlay', note);
-  })
-})
 
 var startServer = function () {
 
