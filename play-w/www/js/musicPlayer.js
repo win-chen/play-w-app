@@ -29,26 +29,24 @@ function getTouchLocation(element, event) {
 function initPlayer() {
   console.log("Running music player");
 
-  // Create canvas layer over threeJSCanvas
-  var threeJSCanvas = document.getElementsByTagName('canvas')[0];
-  var canvas = document.createElement('canvas');
-  canvas.setAttribute("id", "musicLayer");
-
-  var container = threeJSCanvas.parentElement;
-  container.appendChild(canvas);
-  canvas.width = threeJSCanvas.width;
-  canvas.height = threeJSCanvas.height;
-  console.log("canvas", canvas);
+  // Get webgl of threeJS canvas
+  var canvas = document.getElementsByTagName('canvas')[0];
+  var context = canvas.getContext('webgl');
+  var container = canvas.parentElement;
 
   container.addEventListener('click', function(event) {
       console.log("Clicked!");
       var clickLoc = getTouchLocation(this, event);
-      console.log("click", clickLoc);
-      console.log("this", this);
-      var context = canvas.getContext('2d');
-      console.log("context", context);
-      var pixel = context.getImageData(clickLoc.x, clickLoc.y, 5, 5).data;
-      console.log("pixels", pixel);
+
+      // rerender using scene and camera
+      renderer.render(scene, camera);
+
+      // after render, readpixels
+      console.log(clickLoc.x, clickLoc.y)
+      var data = new Uint8Array(5 * 5 * 4);
+      context.readPixels(clickLoc.x, clickLoc.y, 5, 5, context.RGB, context.UNSIGNED_BYTE, data);
+
+      console.log("pixels", data);
   })
 }
 

@@ -11,6 +11,9 @@
 
               controls.update();
               renderer.render(scene, camera);
+              window.scene = scene;
+              window.camera = camera;
+              window.renderer = renderer;
 
             };
 
