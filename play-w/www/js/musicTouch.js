@@ -1,5 +1,10 @@
 window.musicTouch = new window.EventEmitter();
 
+musicTouch.play = function() {
+  var note = playNote();
+  musicTouch.emit('playing', note);
+}
+
 function getElementLocation(element) {
   var x = 0;
   var y = 0;
@@ -48,7 +53,7 @@ function initPlayer() {
 
       console.log("pixels", data);
       // play note
-      playNote();
+      musicTouch.play();
   })
 }
 

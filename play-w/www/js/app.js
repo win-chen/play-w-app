@@ -3,6 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
+
 window.app = angular.module('playw', ['ionic', 'ui.router'])
 
 app.config(function ($urlRouterProvider, $locationProvider) {
@@ -32,4 +33,23 @@ app.run(function($ionicPlatform) {
       StatusBar.styleDefault();
     }
   });
+})
+
+// Socket for sending/receiving notes
+var socket = io(window.location.origin);
+
+socket.on('connect', function(){
+
+  console.log('I have made a persistent two-way connection to the server!');
+
+
+  // catch musicTouch playing event
+  musicTouch.on('playing', function (note){
+      socket.emit('imPlaying', note)
+  })
+
+  socket.on('othersPlay', function(note){
+    musicTouch.play(note);
+  })
+
 })

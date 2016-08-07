@@ -30,9 +30,10 @@ module.exports = function (db) {
 
     });
 
-    // // Set in app-variables.js to use indexHTMLPath
-    // app.get('/*', function (req, res) {
-    //     res.sendFile(app.get('indexHTMLPath'));
+    // Set in app-variables.js to use indexHTMLPath
+    // app.get('/', function (req, res, next) {
+    //     res.send({});
+
     // });
 
     // Error catching endware.
