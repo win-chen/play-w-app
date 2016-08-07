@@ -2,6 +2,7 @@
 
 var chalk = require('chalk');
 var db = require('./db');
+var socketio = require('socket.io');
 
 // Create node server
 var server = require('http').createServer();
@@ -9,8 +10,10 @@ var server = require('http').createServer();
 var createApplication = function () {
     var app = require('./app')(db);
     server.on('request', app); // Attach the Express application.
-    require('./io')(server);   // Attach socket.io.
+    // require('./io')(server);   // Attach socket.io.
 };
+
+var io = socketio(server);
 
 io.on('connection', function(socket) {
   //receives the newly connected socket
@@ -23,17 +26,12 @@ io.on('connection', function(socket) {
     console.log('socket id ' + socket.id + ' has disconnected. : (');
   })
 
-  // socket.on('imPlaying', function(note, origin) {
-  //   console.log('catching a note')
+  socket.on('imPlaying', function(note) {
+    console.log('catching a note')
 
-  //   // we need to emit an event all sockets except the socket that originally emitted the
-  //   // the draw data to the server
-  //   // broadcasting means sending a message to everyone else except for the
-  //   // the socket that starts it
-  //   socket.broadcast.emit('hearingNote', note, origin);
-  // })
-
-
+    // Broadcast(other sockets only)
+    socket.broadcast.emit('othersPlay', note);
+  })
 })
 
 var startServer = function () {
