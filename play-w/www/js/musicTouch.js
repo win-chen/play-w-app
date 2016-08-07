@@ -1,4 +1,4 @@
-window.musicPlayer = new window.EventEmitter();
+window.musicTouch = new window.EventEmitter();
 
 function getElementLocation(element) {
   var x = 0;
@@ -27,7 +27,7 @@ function getTouchLocation(element, event) {
 
 // Attach click handler to screen
 function initPlayer() {
-  console.log("Running music player");
+  console.log("Music touch ready");
 
   // Get webgl of threeJS canvas
   var canvas = document.getElementsByTagName('canvas')[0];
