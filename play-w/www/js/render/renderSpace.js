@@ -50,7 +50,7 @@
 
             // PARTICLES
             // create the particle variables
-            var particleCount = 400,
+            var particleCount = 300,
                 particles = new THREE.Geometry(),
                 pMaterial = new THREE.PointsMaterial({
               color: 0xFFFFFF,
@@ -66,17 +66,21 @@
             // now create the individual particles
             for (var p = 0; p < particleCount; p++) {
 
-              // create a particle with random
-              // position values, -250 -> 250
-              var pX = Math.random() * 500 - 250,
-                  pY = Math.random() * 500 - 250,
-                  pZ = Math.random() * 500 - 250,
-                  particle = new THREE.Vector3(pX, pY, pZ);
+              // // create a particle with random
+              // // position values, -250 -> 250
+              // var pX = Math.random() * 500 - 250,
+              //     pY = Math.random() * 500 - 250,
+              //     pZ = Math.random() * 500 - 250,
+
+              // create particle via array in starPositions.js
+              var pX = starPositions[p].x;
+              var pY = starPositions[p].y;
+              var pZ = starPositions[p].z;
+              var particle = new THREE.Vector3(pX, pY, pZ);
 
               // add it to the geometry
               particles.vertices.push(particle);
             }
-
             // create the particle system
             var particleSystem = new THREE.Points(
                 particles,

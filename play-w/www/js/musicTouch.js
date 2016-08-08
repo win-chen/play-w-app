@@ -26,14 +26,24 @@ function getElementLocation(element) {
   }
 }
 
-// get touch location in context of element
-function getTouchLocation(element, event) {
+// // get touch location in context of element
+// function getTouchLocation(element, event) {
+//     var ele = getElementLocation(element);
+//     return {
+//       x: event.pageX - ele.x,
+//       y: event.pageY - ele.y
+//     }
+// }
+
+function getTouchLocation2(element, event) {
     var ele = getElementLocation(element);
     return {
-      x: event.pageX - ele.x,
-      y: event.pageY - ele.y
+      x: (event.pageX - ele.x) * 2 ,
+      y: (event.pageY - ele.y) * 2
     }
 }
+
+
 
 // function getTouchLocation(element, event) {
 //     return {
@@ -82,25 +92,25 @@ function initPlayer() {
 
   // Get webgl of threeJS canvas
   var canvas = document.getElementsByTagName('canvas')[0];
-  var context = canvas.getContext('webgl');
+  var context;
   var container = canvas.parentElement;
 
   container.addEventListener('click', function(event) {
       console.log("Clicked!");
-      var clickLoc = getTouchLocation(this, event);
-
+      var clickLoc = getTouchLocation2(this, event);
+      context = canvas.getContext('webgl', {preserveDrawingBuffer: true})
       // rerender using scene and camera
       renderer.render(sceneStars, camera);
 
       // after render, readpixels
       var numpxls = 30;
-      console.log(clickLoc.x, clickLoc.y)
+      console.log("xy", clickLoc.x, clickLoc.y)
       var pixels = new Uint8Array(numpxls * numpxls * 4);
       context.readPixels(clickLoc.x, clickLoc.y, numpxls, numpxls, context.RGB, context.UNSIGNED_BYTE, pixels);
 
       var avgpxls = avgColor(pixels);
       var sumpxls = sumColor(pixels)
-      console.log("pixels", pixels);
+      // console.log("pixels", pixels);
       console.log("avg", avgpxls);
       console.log("sum", sumpxls);
       // play note
