@@ -5,6 +5,11 @@ musicTouch.play = function() {
   musicTouch.emit('playing', note);
 }
 
+musicTouch.echo = function(note) {
+  console.log("heard " + note);
+  var note = playNote();
+}
+
 function getElementLocation(element) {
   var x = 0;
   var y = 0;
@@ -30,6 +35,47 @@ function getTouchLocation(element, event) {
     }
 }
 
+// function getTouchLocation(element, event) {
+//     return {
+//       x: event.pageX,
+//       y: event.pageY
+//     }
+// }
+
+
+// average pixel data
+function avgColor(data) {
+  // sum r, g, b values
+  var avg = [];
+  for(var i = 0; i < 3; i++) {
+    avg[i] = 0;
+  }
+  for(var j = 0; j < data.length; j) {
+    for(var k = 0; k < avg.length && j < data.length; k++) {
+      avg[k] += data[j++];
+    }
+  }
+  // avg r, g, b values
+  var rows = Math.floor(data.length / avg.length);
+  var remainder = data.length % avg.length;
+   for(var m = 0; m < avg.length; m++) {
+    if(m < remainder) avg[m] = avg[m] / (rows + 1);
+    else avg[m] = avg[m] / rows;
+  }
+  return avg;
+}
+
+function sumColor(data) {
+  // sum r, g, b values
+  var sum = new Uint8Array(3);
+  for(var j = 0; j < data.length; j) {
+    for(var k = 0; k < sum.length && j < data.length; k++) {
+      sum[k] += data[j++];
+    }
+  }
+  return sum;
+}
+
 // Attach click handler to screen
 function initPlayer() {
   console.log("Music touch ready");
@@ -44,14 +90,19 @@ function initPlayer() {
       var clickLoc = getTouchLocation(this, event);
 
       // rerender using scene and camera
-      renderer.render(scene, camera);
+      renderer.render(sceneStars, camera);
 
       // after render, readpixels
+      var numpxls = 30;
       console.log(clickLoc.x, clickLoc.y)
-      var data = new Uint8Array(5 * 5 * 4);
-      context.readPixels(clickLoc.x, clickLoc.y, 5, 5, context.RGB, context.UNSIGNED_BYTE, data);
+      var pixels = new Uint8Array(numpxls * numpxls * 4);
+      context.readPixels(clickLoc.x, clickLoc.y, numpxls, numpxls, context.RGB, context.UNSIGNED_BYTE, pixels);
 
-      console.log("pixels", data);
+      var avgpxls = avgColor(pixels);
+      var sumpxls = sumColor(pixels)
+      console.log("pixels", pixels);
+      console.log("avg", avgpxls);
+      console.log("sum", sumpxls);
       // play note
       musicTouch.play();
   })

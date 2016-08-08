@@ -4,5 +4,5 @@ var playNote = function() {
   setTimeout(function() {
      audio.pause();
   }, 10000)
-  return "note";
+  return "audio/fxshadow.mp3";
 }

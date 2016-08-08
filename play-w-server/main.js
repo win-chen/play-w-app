@@ -15,21 +15,17 @@ var createApplication = function () {
 
     console.log("Sockets ready");
 
+    //receives the newly connected socket
     io.on('connection', function(socket) {
-      //receives the newly connected socket
-      //called for each browser that connects to our server
-      console.log('A new client has connected');
-      console.log('socket id: ', socket.id);
+      console.log('A new user has connected with id', socket.id);
 
       //event that runs anytime a socket disconnects
       socket.on('disconnect', function(){
-        console.log('socket id ' + socket.id + ' has disconnected. : (');
+        console.log('socket id ' + socket.id + ' has disconnected.');
       })
 
       socket.on('imPlaying', function(note) {
-        console.log('catching a note')
-
-         socket.emit('text', 'wow. such event. very real time.');
+        console.log('broadcasting note')
         // Broadcast(other sockets only)
         socket.broadcast.emit('othersPlay', note);
       })
