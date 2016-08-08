@@ -1,13 +1,14 @@
 window.musicTouch = new window.EventEmitter();
 
-musicTouch.play = function() {
-  var note = playNote();
-  musicTouch.emit('playing', note);
+musicTouch.play = function(color) {
+  console.log("playing color", color);
+  playNote(color);
+  musicTouch.emit('playing', color);
 }
 
-musicTouch.echo = function(note) {
-  console.log("heard " + note);
-  var note = playNote();
+musicTouch.echo = function(color) {
+  console.log("heard " + color);
+  playNote(color);
 }
 
 function getElementLocation(element) {
@@ -114,7 +115,7 @@ function initPlayer() {
       console.log("avg", avgpxls);
       console.log("sum", sumpxls);
       // play note
-      musicTouch.play();
+      musicTouch.play("ffffee");
   })
 }
 

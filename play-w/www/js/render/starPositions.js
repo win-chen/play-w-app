@@ -1118,13 +1118,3 @@ var starPositions = [ { x: 163.41018991079181,
     y: 146.65211201645434,
     z: 221.29127336665988,
     color: 'ffeeff' } ];
-
-var colors = {
-  ffffff: "c",
-  ffeeee: "d",
-  eeffff: "e",
-  eeffee: "f",
-  ffeeff: "g",
-  eeeeff: "a",
-  ffffee: "b",
-};

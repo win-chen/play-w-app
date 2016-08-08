@@ -46,6 +46,7 @@
 
     <!-- playw scripts -->
     <script src="js/render/starPositions.js"></script>
+    <script src="js/audiosynth.js"></script>
     <script src="js/eventEmitter.js"></script>
     <script src="js/render/three.js"></script>
     <script src="js/render/DeviceOrientationControls.js"></script>
@@ -55,10 +56,10 @@
 
     <!-- your app's js -->
     <script src="js/app.js"></script>
-     <script src="js/buttonbar/buttonbar.js"></script>
-    <!-- socket test -->
+    <script src="js/buttonbar/buttonbar.js"></script>
     <!-- make sure the client socket io version is the same as server version -->
-  <script type="text/javascript" src="http://cdn.socket.io/socket.io-1.4.8.js"></script>
+    <script src="http://192.168.0.4:5000/socket.io/socket.io.js"></script>
+    <script src="http://cdn.socket.io/socket.io-1.4.8.js"></script>
   <script src="js/socket.js" defer>
   </script>
 
@@ -71,15 +72,6 @@
 
     <ion-pane>
       <ion-header-bar class="bar-stable">
-      <!-- <div class="button-bar">
-        <a on-touch="onTouch()" class="button" style="background-color:red"></a>
-        <a on-touch="onTouch()" class="button" style="color:red"></a>
-        <a on-touch="onTouch()" class="button" style="color:#ffffff"></a>
-        <a on-touch="onTouch()" class="button" style="color:#ffffff"></a>
-        <a on-touch="onTouch()" class="button" style="color:#ffffff"></a>
-        <a on-touch="onTouch()" class="button" style="color:#ffffff"></a>
-        <a on-touch="onTouch()" class="button" style="color:#ffffff"></a>
-      </div> -->
       <buttonbar></buttonbar>
       </ion-header-bar>
       <ion-content id="container">

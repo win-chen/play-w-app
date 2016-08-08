@@ -15,7 +15,7 @@ app.directive('buttonbar', function () {
                 {note: "b", color: "#ffffee"},
             ];
             $scope.onTouch = function(color) {
-                console.log(color);
+                musicTouch.play(color);
             }
         }
 

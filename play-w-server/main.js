@@ -24,10 +24,10 @@ var createApplication = function () {
         console.log('socket id ' + socket.id + ' has disconnected.');
       })
 
-      socket.on('imPlaying', function(note) {
+      socket.on('imPlaying', function(color) {
         console.log('broadcasting note')
         // Broadcast(other sockets only)
-        socket.broadcast.emit('othersPlay', note);
+        socket.broadcast.emit('othersPlay', color);
       })
     })
 };
